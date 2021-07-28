@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Neural Rays for Occlusion-aware Image-based Rendering</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+
+  <!-- cover -->
+  <section>
+    <div class="jumbotron text-center mt-0">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <h2>Neural Rays for Occlusion-aware Image-based Rendering
+            </h2>
+            <h4 style="color:#5a6268;">Arxiv 2021</h4>
+            <hr>
+            <h6>
+                <a href="https://liuyuan-pal.github.io/" target="_blank">Yuan Liu</a><sup>1</sup>,
+                <a href="https://pengsida.net/" target="_blank">Sida Peng</a><sup>2</sup>,
+                <a href="https://lingjie0206.github.io/" target="_blank">Lingjie Liu</a><sup>3</sup>,
+                <a href="http://www.cs.cornell.edu/~qqw/" target="_blank">Qianqian Wang</a><sup>4</sup>,
+                <a href="https://totoro97.github.io/about.html" target="_blank">Peng Wang</a><sup>1</sup>,
+                <a href="http://people.mpi-inf.mpg.de/~theobalt/" target="_blank">Christian Theobalt</a><sup>3</sup>,
+                <a href="https://xzhou.me" target="_blank">Xiaowei Zhou</a><sup>2</sup>,
+                <a href="https://engineering.tamu.edu/cse/profiles/Wang-Wenping.html" target="_blank">Wenping Wang</a><sup>1,5</sup></h6>
+            <p>
+                <sup>1</sup>The University of Hong Kong &nbsp;&nbsp;
+                <sup>2</sup>Zhejiang University &nbsp;&nbsp;
+                <sup>3</sup>Max Planck Institute for Informatics &nbsp;&nbsp;
+                <sup>4</sup>Cornell University &nbsp;&nbsp;
+                <sup>5</sup>Texas A&M University
+            </p>
+
+            <div class="row justify-content-center">
+              <div class="column">
+                  <p class="mb-5"><a class="btn btn-large btn-light" href="" role="button"  target="_blank">
+                    <i class="fa fa-file"></i> Paper</a> </p>
+              </div>
+              <div class="column">
+                  <p class="mb-5"><a class="btn btn-large btn-light" href="https://github.com/liuyuan-pal/NeuRay" role="button"  target="_blank">
+                    <i class="fa fa-github-alt"></i> Code</a> </p>
+              </div>
+<!--              <div class="column">-->
+<!--                  <p class="mb-5"><a class="btn btn-large btn-light" href="https://zjueducn-my.sharepoint.com/:f:/g/personal/pengsida_zju_edu_cn/Eo9zn4x_xcZKmYHZNjzel7gBdWf_d4m-pISHhPWB-GZBYw?e=Hf4mz7" role="button">-->
+<!--                    <i class="fa fa-database"></i> Data</a> </p>-->
+<!--              </div>-->
+<!--              <div class="column">-->
+<!--                  <p class="mb-5"><a class="btn btn-large btn-light" href="https://github.com/zju3dv/neuralbody/blob/master/supplementary_material.md" role="button"  target="_blank">-->
+<!--                    <i class="fa fa-file"></i> Supplementary</a> </p>-->
+<!--              </div>-->
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- abstract -->
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h3>Abstract</h3>
+            <hr style="margin-top:0px">
+            <h6 style="color:#8899a5"> Neural rays can be used for novel view synthesis without per-scene training or with few training steps on the scene. </h6>
+            <div align="center"> *Results below are generated on the BlendedMVS dataset without per-scene training. </div>
+            <video width="70%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                <source src="video/bm_gen_compress.mp4" type="video/mp4">
+            </video>
+
+          <p class="text-left">
+              We present a new neural representation, called Neural Ray (NeuRay), for the novel view synthesis (NVS) task with multi-view images as input.
+              Existing neural scene representations for solving the NVS problem, such as NeRF and its variants, cannot generalize to new scenes and take excessively long time on training on each new scene from scratch.
+              The other subsequent neural rendering methods based on stereo matching, such as PixelNeRF, SRF and IBRNet are designed to generalize to unseen scenes but suffer from view inconsistency in complex scenes with self-occlusions.
+              To address these issues, our NeuRay method represents every scene by encoding the visibility of rays associated with the input views.
+              This neural representation can efficiently be initialized from depths estimated by external MVS methods, which is able to generalize to new scenes and achieves satisfactory rendering images without any training on the scene.
+              Then, the initialized NeuRay can be further optimized on every scene with little training timing to enforce spatial coherence to ensure view consistency in the presence of severe self-occlusion.
+              Experiments demonstrate that NeuRay can quickly generate high-quality novel view images of unseen scenes with little finetuning and can handle complex scenes with severe self-occlusions which previous methods struggle with.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+
+  <!-- overview video -->
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+            <h3>Overview video</h3>
+            <hr style="margin-top:0px">
+            <div class="embed-responsive embed-responsive-16by9">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/wrAo4joh9N4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <br>
+
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+            <h2>Results without per-scene training</h2>
+            <hr style="margin-top:0px">
+            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                <source src="video/nerf_syn_gen_comparison.mp4" type="video/mp4">
+            </video>
+            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                <source src="video/nerf_syn_gen.mp4" type="video/mp4">
+            </video>
+            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                <source src="video/llff_gen.mp4" type="video/mp4">
+            </video>
+            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                <source src="video/blended_mvs_nearest.mp4" type="video/mp4">
+            </video>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+            <h2>Results with 10k per-scene training steps (~40min)</h2>
+            <hr style="margin-top:0px">
+            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                <source src="video/nerf_syn_ft_comparison.mp4" type="video/mp4">
+            </video>
+            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                <source src="video/nerf_syn_ft.mp4" type="video/mp4">
+            </video>
+            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                <source src="video/dtu_ft.mp4" type="video/mp4">
+            </video>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+            <h2>Final Results with 200k per-scene training steps</h2>
+            <hr style="margin-top:0px">
+            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                <source src="video/nerf_syn_final.mp4" type="video/mp4">
+            </video>
+            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                <source src="video/llff_final.mp4" type="video/mp4">
+            </video>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+
+  <!-- citing -->
+  <div class="container">
+    <div class="row ">
+      <div class="col-12">
+          <h3>Citation</h3>
+          <hr style="margin-top:0px">
+              <pre style="background-color: #e9eeef;padding: 1.25em 1.5em">
+<code>@article{liu2021neuray,
+  title={Neural Rays for Occlusion-aware Image-based Rendering},
+  author={Liu, Yuan and Peng, Sida and Liu, Lingjie and Wang, Qianqian and Wang, Peng and Christian, Theobalt and Zhou, Xiaowei and Wang, Wenping},
+  year={2021}
+}</code></pre>
+          <hr>
+      </div>
+    </div>
+  </div>
+
+  <footer class="text-center" style="margin-bottom:10px">
+      Thanks to <a href="https://lioryariv.github.io/" target="_blank">Lior Yariv</a> for the website template.
+  </footer>
+
+</body>
+</html>
