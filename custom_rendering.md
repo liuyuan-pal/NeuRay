@@ -9,8 +9,8 @@ Download images [here](https://drive.google.com/file/d/1Lkt5nNlC9M5Agkt5y3uzD2VX
 ```
 NeuRay
 |-- data
-	|-- example
-		|-- desktop
+    |-- example
+        |-- desktop
             |-- images
                 |-- *.jpg
 ```
@@ -57,9 +57,9 @@ We have provided estimated depth maps from COLMAP on the BlendedMVS dataset, whi
 ```shell
 # We may change the "building" in the command to ["iron_dog", "santa", "dragon", "mermaid", "laid_man"]
 python render.py --cfg configs/gen/neuray_gen_depth.yaml \
-				 --database blended_mvs/building/half \ 
-				 --pose_type inter_60 \
-				 --pose_fn configs/blended_mvs/building.txt
+                 --database blended_mvs/building/half \ 
+                 --pose_type inter_60 \
+                 --pose_fn configs/blended_mvs/building.txt
 ```
 
  Rendered images are saved in `data/render/blended_mvs/building/half/neuray_gen_depth-pretrain-inter_60`.

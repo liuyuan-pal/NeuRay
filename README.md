@@ -75,7 +75,7 @@ If the `pose_type` is `eval`, we also generate ground-truth images in `data/rend
 ```shell
 # psnr/ssim/lpips will be printed on screen
 python eval.py --dir_pr data/render/<database_name>/<renderer_name>-pretrain-eval \
-			   --dir_gt data/render/<database_name>/gt
+               --dir_gt data/render/<database_name>/gt
 
 # example of evaluation on "fern".
 # note we should already render images in the "dir_pr".
