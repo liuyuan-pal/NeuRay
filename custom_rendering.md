@@ -15,7 +15,7 @@ NeuRay
                 |-- *.jpg
 ```
 
-Make sure these images are not too large (e.g. $\le 960\times 720$). Otherwise, running COLMAP or rendering will take very long time.
+Make sure these images are not too large (e.g. <= 960x720). Otherwise, running COLMAP or rendering will take very long time.
 
 #### 2. Run COLMAP to reconstruct camera poses and scene geometry
 

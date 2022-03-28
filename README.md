@@ -65,10 +65,10 @@ If the `pose_type` is `eval`, we also generate ground-truth images in `data/rend
 
 - `cfg` is the path to the renderer config file, which can also be `configs/gen/neuray_gen_cost_volume.yaml`
 - `database` is a database name consisting of `<dataset_name>/<scene_name>/<scene_setting>`.
-  -  `nerf_synthetic/lego/black_800` means the scene "lego" from the "nerf_synthetic" dataset using "black" background and the resolution "800$\times$800".
-  - `dtu_test/snowman/black_800` means the scene "snowman" from the "dtu_test" dataset using "black" background and the resolution "800$\times$600".
-  - `llff_colmap/fern/high` means the scene "fern" from the "llff_colmap" dataset using "high" resolution (1008$\times$756).
-  - We may also use `llff_colmlap/fern/low` which renders with "low" resolution (504$\times$378)
+  -  `nerf_synthetic/lego/black_800` means the scene "lego" from the "nerf_synthetic" dataset using "black" background and the resolution "800X800".
+  - `dtu_test/snowman/black_800` means the scene "snowman" from the "dtu_test" dataset using "black" background and the resolution "800X600".
+  - `llff_colmap/fern/high` means the scene "fern" from the "llff_colmap" dataset using "high" resolution (1008X756).
+  - We may also use `llff_colmlap/fern/low` which renders with "low" resolution (504X378)
 
 ### Evaluation
 
