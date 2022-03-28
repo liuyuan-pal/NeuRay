@@ -1,0 +1,15 @@
+pytorch>=1.4.0
+tensorflow>=2.0
+easydict
+inplace-abn
+plyfile
+numpy
+skimage
+yaml
+h5py
+opencv-python
+tqdm
+matplotlib
+scipy
+lpips
+transforms3d
