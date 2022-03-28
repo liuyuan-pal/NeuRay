@@ -1,5 +1,9 @@
 # NeuRay
 
+Rendered video without training on the scene.
+
+![](assets/desktop.gif)
+
 ## [Project page](https://liuyuan-pal.github.io/NeuRay/) | [Paper](https://arxiv.org/abs/2107.13421)
 
 ## Todo List
@@ -86,8 +90,6 @@ python eval.py --dir_pr data/render/llff_colmap/fern/high/neuray_gen_depth-pretr
 ### Render on custom scenes
 
 To render on custom scenes, please refer to [this](custom_rendering.md)
-
-![](assets/desktop.gif)
 
 ## Code explanation
 
