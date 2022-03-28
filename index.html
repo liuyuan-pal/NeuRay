@@ -18,7 +18,7 @@
           <div class="col-12">
             <h2>Neural Rays for Occlusion-aware Image-based Rendering
             </h2>
-            <h4 style="color:#5a6268;">Arxiv 2021</h4>
+            <h4 style="color:#5a6268;">CVPR 2022</h4>
             <hr>
             <h6>
                 <a href="https://liuyuan-pal.github.io/" target="_blank">Yuan Liu</a><sup>1</sup>,
@@ -77,13 +77,7 @@
             </video>
 
           <p class="text-left">
-              We present a new neural representation, called Neural Ray (NeuRay), for the novel view synthesis (NVS) task with multi-view images as input.
-              Existing neural scene representations for solving the NVS problem, such as NeRF and its variants, cannot generalize to new scenes and take excessively long time on training on each new scene from scratch.
-              The other subsequent neural rendering methods based on stereo matching, such as PixelNeRF, SRF and IBRNet are designed to generalize to unseen scenes but suffer from view inconsistency in complex scenes with self-occlusions.
-              To address these issues, our NeuRay method represents every scene by encoding the visibility of rays associated with the input views.
-              This neural representation can efficiently be initialized from depths estimated by external MVS methods, which is able to generalize to new scenes and achieves satisfactory rendering images without any training on the scene.
-              Then, the initialized NeuRay can be further optimized on every scene with little training timing to enforce spatial coherence to ensure view consistency in the presence of severe self-occlusion.
-              Experiments demonstrate that NeuRay can quickly generate high-quality novel view images of unseen scenes with little finetuning and can handle complex scenes with severe self-occlusions which previous methods struggle with.
+                We present a new neural representation, called Neural Ray (NeuRay), for the novel view synthesis task. Recent works construct radiance fields from image features of input views to render novel view images, which enables the generalization to new scenes. However, due to occlusions, a 3D point may be invisible to some input views. On such a 3D point, these generalization methods will include inconsistent image features from invisible views, which interfere with the radiance field construction. To solve this problem, we predict the visibility of 3D points to input views within our NeuRay representation. This visibility enables the radiance field construction to focus on visible image features, which significantly improves its rendering quality. Meanwhile, a novel consistency loss is proposed to refine the visibility in NeuRay when finetuning on a specific scene. Experiments demonstrate that our approach achieves state-of-the-art performance on the novel view synthesis task when generalizing to unseen scenes and outperforms per-scene optimization methods after finetuning.
           </p>
         </div>
       </div>
@@ -92,27 +86,27 @@
   <br>
 
   <!-- overview video -->
+<!--  <section>-->
+<!--    <div class="container">-->
+<!--      <div class="row">-->
+<!--        <div class="col-12 text-center">-->
+<!--            <h3>Overview video</h3>-->
+<!--            <hr style="margin-top:0px">-->
+<!--            <div class="embed-responsive embed-responsive-16by9">-->
+<!--                <iframe width="560" height="315" src="https://www.youtube.com/embed/RCJKdCX8gco" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </section>-->
+
+<!--  <br>-->
+
   <section>
     <div class="container">
       <div class="row">
         <div class="col-12 text-center">
-            <h3>Overview video</h3>
-            <hr style="margin-top:0px">
-            <div class="embed-responsive embed-responsive-16by9">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/RCJKdCX8gco" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <br>
-
-  <section>
-    <div class="container">
-      <div class="row">
-        <div class="col-12 text-center">
-            <h2>Results without per-scene training</h2>
+            <h2>Generalization results</h2>
             <hr style="margin-top:0px">
             <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
                 <source src="video/nerf_syn_gen_comparison.mp4" type="video/mp4">
@@ -132,32 +126,32 @@
   </section>
   <br>
 
-  <section>
-    <div class="container">
-      <div class="row">
-        <div class="col-12 text-center">
-            <h2>Results with 10k per-scene training steps (~40min)</h2>
-            <hr style="margin-top:0px">
-            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
-                <source src="video/nerf_syn_ft_comparison.mp4" type="video/mp4">
-            </video>
-            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
-                <source src="video/nerf_syn_ft.mp4" type="video/mp4">
-            </video>
-            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
-                <source src="video/dtu_ft.mp4" type="video/mp4">
-            </video>
-        </div>
-      </div>
-    </div>
-  </section>
-  <br>
+<!--  <section>-->
+<!--    <div class="container">-->
+<!--      <div class="row">-->
+<!--        <div class="col-12 text-center">-->
+<!--            <h2>Results with 10k per-scene training steps (~40min)</h2>-->
+<!--            <hr style="margin-top:0px">-->
+<!--            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">-->
+<!--                <source src="video/nerf_syn_ft_comparison.mp4" type="video/mp4">-->
+<!--            </video>-->
+<!--            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">-->
+<!--                <source src="video/nerf_syn_ft.mp4" type="video/mp4">-->
+<!--            </video>-->
+<!--            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">-->
+<!--                <source src="video/dtu_ft.mp4" type="video/mp4">-->
+<!--            </video>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </section>-->
+<!--  <br>-->
 
   <section>
     <div class="container">
       <div class="row">
         <div class="col-12 text-center">
-            <h2>Final Results with 200k per-scene training steps</h2>
+            <h2>Finetuned results</h2>
             <hr style="margin-top:0px">
             <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
                 <source src="video/nerf_syn_final.mp4" type="video/mp4">
@@ -178,11 +172,11 @@
           <h3>Citation</h3>
           <hr style="margin-top:0px">
               <pre style="background-color: #e9eeef;padding: 1.25em 1.5em">
-<code>@article{liu2021neuray,
+<code>@inproceedings{liu2022neuray,
   title={Neural Rays for Occlusion-aware Image-based Rendering},
   author={Liu, Yuan and Peng, Sida and Liu, Lingjie and Wang, Qianqian and Wang, Peng and Christian, Theobalt and Zhou, Xiaowei and Wang, Wenping},
-  journal={arXiv preprint arXiv:2107.13421},
-  year={2021}
+  booktitle={CVPR},
+  year={2022}
 }</code></pre>
           <hr>
       </div>
