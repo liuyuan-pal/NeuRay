@@ -71,10 +71,11 @@
           <h3>Abstract</h3>
             <hr style="margin-top:0px">
             <h6 style="color:#8899a5"> Neural rays can be used for novel view synthesis without per-scene training or with few training steps on the scene. </h6>
-            <div align="center"> *Results below are generated on the BlendedMVS dataset without per-scene training. </div>
-            <video width="70%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
-                <source src="video/bm_gen_compress.mp4" type="video/mp4">
+            <div align="center"> *Results below are generated on a custom scene without training on the scene. </div>
+            <video width="40%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                <source src="video/desktop.mp4" type="video/mp4">
             </video>
+			<br>
 
           <p class="text-left">
                 We present a new neural representation, called Neural Ray (NeuRay), for the novel view synthesis task. Recent works construct radiance fields from image features of input views to render novel view images, which enables the generalization to new scenes. However, due to occlusions, a 3D point may be invisible to some input views. On such a 3D point, these generalization methods will include inconsistent image features from invisible views, which interfere with the radiance field construction. To solve this problem, we predict the visibility of 3D points to input views within our NeuRay representation. This visibility enables the radiance field construction to focus on visible image features, which significantly improves its rendering quality. Meanwhile, a novel consistency loss is proposed to refine the visibility in NeuRay when finetuning on a specific scene. Experiments demonstrate that our approach achieves state-of-the-art performance on the novel view synthesis task when generalizing to unseen scenes and outperforms per-scene optimization methods after finetuning.
@@ -108,17 +109,17 @@
         <div class="col-12 text-center">
             <h2>Generalization results</h2>
             <hr style="margin-top:0px">
-            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
-                <source src="video/nerf_syn_gen_comparison.mp4" type="video/mp4">
+            <video width="80%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                <source src="video/comparison_compressed.mp4" type="video/mp4">
             </video>
-            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
-                <source src="video/nerf_syn_gen.mp4" type="video/mp4">
+            <video width="80%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                <source src="video/nerf_syn_gen_compressed.mp4" type="video/mp4">
             </video>
-            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
-                <source src="video/llff_gen.mp4" type="video/mp4">
+            <video width="80%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                <source src="video/llff_gen_compressed.mp4" type="video/mp4">
             </video>
-            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
-                <source src="video/blended_mvs_nearest.mp4" type="video/mp4">
+            <video width="80%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                <source src="video/blended_mvs_compressed.mp4" type="video/mp4">
             </video>
         </div>
       </div>
@@ -153,11 +154,11 @@
         <div class="col-12 text-center">
             <h2>Finetuned results</h2>
             <hr style="margin-top:0px">
-            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
-                <source src="video/nerf_syn_final.mp4" type="video/mp4">
+            <video width="80%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                <source src="video/nerf_syn_ft_compressed.mp4" type="video/mp4">
             </video>
-            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
-                <source src="video/llff_final.mp4" type="video/mp4">
+            <video width="80%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                <source src="video/llff_ft_compressed.mp4" type="video/mp4">
             </video>
         </div>
       </div>
