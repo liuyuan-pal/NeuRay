@@ -305,8 +305,8 @@ class GeneralRendererDataset(Dataset):
         set_seed(index, self.is_train)
         database, que_id, ref_ids_all = self.get_database_ref_que_ids(index)
         ref_ids = self.select_working_views(database, que_id, ref_ids_all)
-        # src_imgs_info used in construction of cost volume
         if self.cfg['use_src_imgs']:
+            # src_imgs_info used in construction of cost volume
             ref_imgs_info, ref_cv_idx, ref_real_idx = build_src_imgs_info_select(database,ref_ids,ref_ids_all,self.cfg['cost_volume_nn_num'])
         else:
             ref_idx = compute_nearest_camera_indices(database, ref_ids)[:,1:4] # used in cost volume construction
@@ -367,6 +367,7 @@ class GeneralRendererDataset(Dataset):
             ref_imgs_info = imgs_info_slice(ref_imgs_info, ref_real_idx)
             ref_imgs_info['nn_ids'] = ref_cv_idx
         else:
+            # 'nn_ids' used in constructing cost volume (specify source image ids)
             ref_imgs_info['nn_ids'] = ref_idx.astype(np.int64)
 
         ref_imgs_info = imgs_info_to_torch(ref_imgs_info)

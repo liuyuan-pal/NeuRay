@@ -1,0 +1,49 @@
+name: neuray_gen_depth_train
+
+# network
+network: neuray_gen
+init_net_type: depth
+use_hierarchical_sampling: true
+use_depth_loss: true
+dist_decoder_cfg:
+  use_vis: false
+fine_dist_decoder_cfg:
+  use_vis: false
+ray_batch_num: 2048
+
+# loss
+loss: [render, depth]
+val_metric: [psnr_ssim, vis_img]
+key_metric_name: psnr_nr_fine
+use_dr_loss: false
+use_dr_fine_loss: false
+use_nr_fine_loss: true
+
+# lr
+total_step: 400000
+val_interval: 10000
+lr_type: exp_decay
+lr_cfg:
+  lr_init: 4.0e-4
+  decay_step: 100000
+  decay_rate: 0.5
+
+# dataset
+train_dataset_type: gen
+train_dataset_cfg:
+  resolution_type: hr
+  type2sample_weights: {gso: 80, dtu_train: 20, real_iconic: 10, space: 20, real_estate: 40}
+  train_database_types: ['dtu_train','space','real_iconic','real_estate','gso']
+  aug_pixel_center_sample: true
+
+val_set_list:
+  -
+    name: llff_fern
+    type: gen
+    cfg:
+      val_database_name: llff_colmap/fern/high
+  -
+    name: nerf_lego
+    type: gen
+    cfg:
+      val_database_name: nerf_synthetic/lego/black_800

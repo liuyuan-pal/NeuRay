@@ -177,11 +177,11 @@ class NeuralRayBaseRenderer(nn.Module):
         if is_train and self.cfg['use_self_hit_prob']:
             outputs['hit_prob_self'] = self.predict_self_hit_prob(que_imgs_info, que_depth, que_dists, is_fine)
 
-        if is_train and 'imgs' in que_imgs_info:
+        if 'imgs' in que_imgs_info:
             outputs['pixel_colors_gt'] = interpolate_feats(
                 que_imgs_info['imgs'], que_imgs_info['coords'], align_corners=True)
 
-        if is_train and self.cfg['use_ray_mask']:
+        if self.cfg['use_ray_mask']:
             outputs['ray_mask'] = torch.sum(prj_dict['mask'].int(),0)>self.cfg['ray_mask_view_num'] # qn,rn,dn,1
             outputs['ray_mask'] = torch.sum(outputs['ray_mask'],2)>self.cfg['ray_mask_point_num'] # qn,rn
             outputs['ray_mask'] = outputs['ray_mask'][...,0]
@@ -226,7 +226,7 @@ class NeuralRayBaseRenderer(nn.Module):
         for ray_id in range(0,ray_num,ray_batch_num):
             que_imgs_info['coords']=coords[:,ray_id:ray_id+ray_batch_num]
             render_info = self.render_impl(que_imgs_info,ref_imgs_info,is_train)
-            output_keys = ['pixel_colors_nr_fine','pixel_colors_nr'] if not is_train else render_info.keys()
+            output_keys = [k for k in render_info.keys() if is_train or (not k.startswith('hit_prob'))]
             for k in output_keys:
                 v = render_info[k]
                 if k not in render_info_all:

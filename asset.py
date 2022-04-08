@@ -34,8 +34,8 @@ if os.path.exists('data/real_iconic_noface'):
     real_iconic_scene_names_4 = [f'real_iconic/{fn}/4' for fn in fns]
 
 space_scene_names = []
-if os.path.exists('data/space_dataset'):
-    fns = os.listdir('data/space_dataset/data/800')
+if os.path.exists('data/spaces_dataset'):
+    fns = os.listdir('data/spaces_dataset/data/800')
     space_scene_names = [f'space/{fn}' for fn in fns]
 
 real_estate_scene_names = []
