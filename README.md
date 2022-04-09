@@ -10,7 +10,7 @@ Rendered video without training on the scene.
 
 - [x] Generalization models and rendering codes.
 - [x] Training of generalization models.
-- [ ] Finetuning codes and finetuned models.
+- [x] Finetuning codes and finetuned models.
 
 ## Usage
 ### Setup
@@ -135,6 +135,46 @@ python render.py --cfg configs/gen/neuray_gen_depth_train.yaml \
                  --pose_type eval
 ```
 
+## Scene-specific finetuning
+
+### Finetuning
+```shell
+# finetune on lego from the NeRF synthetic dataset
+python run_training.py --cfg configs/train/ft/neuray_ft_depth_lego.yaml
+
+# finetune on fern from the LLFF dataset
+python run_training.py --cfg configs/train/ft/neuray_ft_depth_fern.yaml
+
+# finetune on birds from the DTU dataset
+python run_training.py --cfg configs/train/ft/neuray_ft_depth_birds.yaml
+
+# finetune the model initialized from cost volume
+python run_training.py --cfg configs/train/ft/neuray_ft_cv_lego.yaml
+```
+The finetuned models will be saved at `data/model`.
+
+### Finetuned models
+We provide the finetuned models on the NeRF synthetic datasets at [here](https://drive.google.com/file/d/16uj7e_-8EDOLKF96QkdP3xwkBqCrc6ad/view?usp=sharing
+).
+
+Download the models and organize files like
+```shell
+NeuRay
+|-- data
+    |-- model
+        |-- neuray_ft_lego_pretrain
+        |-- neuray_ft_chair_pretrain
+        ...
+```
+
+### Render with finetuned models
+```shell
+# render on lego of the NeRF synthetic dataset
+python render.py --cfg configs/ft/neuray_ft_lego_pretrain.yaml \  
+                 --database nerf_synthetic/lego/black_800 \
+                 --pose_type eval \
+                 --render_type ft
+```
 
 ## Code explanation
 

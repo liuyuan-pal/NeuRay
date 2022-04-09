@@ -127,23 +127,31 @@ def render_video_gen(database_name: str,
             if not (Path(gt_dir)/f'{qi}.jpg').exists():
                 imsave(f'{gt_dir}/{qi}.jpg',database.get_image(render_ids[qi]))
 
-def render_video_ft(database_name, cfg_fn, pose_type, rb=0, re=-1):
+def render_video_ft(database_name, cfg_fn, pose_type, pose_fn, ray_num, rb=0, re=-1):
     # init network
-    default_cfg={'external_ray_feats': False}
-    cfg = {**default_cfg, **load_cfg(cfg_fn)}
+    # default_cfg={}
+    # cfg = {**default_cfg, **load_cfg(cfg_fn)}
+    cfg = load_cfg(cfg_fn)
     cfg['gen_cfg'] = None
     cfg['validate_initialization'] = False
-    renderer = name2network[cfg['network']](cfg)
+    cfg['ray_batch_num'] = ray_num
     ckpt = torch.load(f'data/model/{cfg["name"]}/model_best.pth')
+    _, dim, h, w = ckpt['network_state_dict']['ray_feats.0'].shape
+    cfg['ray_feats_res'] = [h,w]
+    cfg['ray_feats_dim'] = dim
+    renderer = name2network[cfg['network']](cfg)
     renderer.load_state_dict(ckpt['network_state_dict'])
+    step=ckpt['step']
     renderer.cuda()
     renderer.eval()
 
     database = parse_database_name(database_name)
-    que_poses, que_Ks, que_shapes, que_depth_ranges = prepare_render_info(database, pose_type)
+    que_poses, que_Ks, que_shapes, que_depth_ranges, ref_ids, render_ids = \
+        prepare_render_info(database, pose_type, pose_fn, False)
+    assert(database.database_name == renderer.database.database_name)
 
-    output_dir = f'data/video_render/{database_name}/{cfg["name"]}-{pose_type}'
-    make_dir(output_dir)
+    output_dir = f'data/render/{database.database_name}/{cfg["name"]}-{step}-{pose_type}'
+    Path(output_dir).mkdir(parents=True,exist_ok=True)
 
     # render
     num = que_poses.shape[0]
@@ -169,7 +177,6 @@ if __name__=="__main__":
     parser.add_argument('--ray_num', type=int, default=4096, help='number of ')
     flags = parser.parse_args()
     if flags.render_type=='gen':
-        render_video_gen(flags.database_name,cfg_fn=flags.cfg,pose_type=flags.pose_type,pose_fn=flags.pose_fn,ray_num=flags.ray_num,rb=flags.rb,re=flags.re)
+        render_video_gen(flags.database_name, cfg_fn=flags.cfg, pose_type=flags.pose_type, pose_fn=flags.pose_fn, ray_num=flags.ray_num, rb=flags.rb,re=flags.re)
     else:
-        raise NotImplementedError
-    #     render_video_ft(flags.database_name, cfg_fn=flags.cfg, pose_type=flags.pose_type, rb=flags.rb, re=flags.re)
+        render_video_ft(flags.database_name, cfg_fn=flags.cfg, pose_type=flags.pose_type, pose_fn=flags.pose_fn, ray_num=flags.ray_num, rb=flags.rb, re=flags.re)

@@ -1,5 +1,6 @@
-from dataset.train_dataset import GeneralRendererDataset
+from dataset.train_dataset import GeneralRendererDataset, FinetuningRendererDataset
 
 name2dataset={
-    'gen': GeneralRendererDataset
+    'gen': GeneralRendererDataset,
+    'ft': FinetuningRendererDataset,
 }

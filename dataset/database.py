@@ -340,7 +340,7 @@ class NeRFSyntheticDatabase(BaseDatabase):
                 depth = cv2.resize(depth, (self.img_size,self.img_size), interpolation=cv2.INTER_NEAREST)
             return depth
         else:
-            raise NotImplementedError
+            return None
 
     def get_mask(self, img_id):
         alpha=imread(f'{self.root_dir}/{self.img_id2img_path(img_id)}.png')[:,:,3]

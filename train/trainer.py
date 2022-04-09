@@ -32,8 +32,6 @@ class Trainer:
         "val_interval": 10000,
         "save_interval": 500,
         "worker_num": 8,
-        "external_ray_feats": False,
-        "special_save_steps": [],
     }
     def _init_dataset(self):
         self.train_set=name2dataset[self.cfg['train_dataset_type']](self.cfg['train_dataset_cfg'], True)
@@ -161,9 +159,6 @@ class Trainer:
             if (step+1)%self.cfg['save_interval']==0:
                 self._save_model(step+1,best_para)
 
-            if (step+1) in self.cfg['special_save_steps']:
-                self._save_model(step+1, best_para, save_fn=os.path.join(self.model_dir,f'model_{step+1}.pth'))
-
             pbar.set_postfix(loss=float(loss.detach().cpu().numpy()),lr=lr)
             pbar.update(1)
             del loss, log_info
@@ -178,31 +173,18 @@ class Trainer:
             start_step = checkpoint['step']
             self.network.load_state_dict(checkpoint['network_state_dict'])
             self.optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
-            if self.cfg['external_ray_feats']:
-                # todo: test the load here
-                for ray_feat, v in zip(self.network.ray_feats, checkpoint['ray_feats']):
-                    ray_feat.data.copy_(v)
             print(f'==> resuming from step {start_step} best para {best_para}')
 
         return best_para, start_step
 
     def _save_model(self, step, best_para, save_fn=None):
         save_fn = self.pth_fn if save_fn is None else save_fn
-        if self.cfg['external_ray_feats']:
-            torch.save({
-                'step':step,
-                'best_para':best_para,
-                'network_state_dict': self.network.state_dict(),
-                'ray_feats': [v.data for v in self.network.ray_feats], # transform to tensors
-                'optimizer_state_dict': self.optimizer.state_dict(),
-            },save_fn)
-        else:
-            torch.save({
-                'step':step,
-                'best_para':best_para,
-                'network_state_dict': self.network.state_dict(),
-                'optimizer_state_dict': self.optimizer.state_dict(),
-            },save_fn)
+        torch.save({
+            'step':step,
+            'best_para':best_para,
+            'network_state_dict': self.network.state_dict(),
+            'optimizer_state_dict': self.optimizer.state_dict(),
+        },save_fn)
 
     def _init_logger(self):
         self.logger = Logger(self.model_dir)

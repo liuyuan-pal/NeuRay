@@ -379,3 +379,24 @@ class GeneralRendererDataset(Dataset):
 
     def __len__(self):
         return self.num
+
+
+class FinetuningRendererDataset(Dataset):
+    default_cfg={
+        "database_name": "nerf_synthetic/lego/black_800",
+        "database_split_type": "val_all"
+    }
+    def __init__(self,cfg, is_train):
+        self.cfg={**self.default_cfg,**cfg}
+        self.is_train=is_train
+        self.train_ids, self.val_ids = get_database_split(parse_database_name(self.cfg['database_name']),self.cfg['database_split_type'])
+
+    def __getitem__(self, index):
+        output={'index': index}
+        return output
+
+    def __len__(self):
+        if self.is_train:
+            return 99999999
+        else:
+            return len(self.val_ids)
