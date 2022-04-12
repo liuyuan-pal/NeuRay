@@ -48,6 +48,7 @@ class NeuralRayBaseRenderer(nn.Module):
         'ray_mask_view_num': 2,
         'ray_mask_point_num': 8,
 
+        'render_depth': False,
     }
     def __init__(self,cfg):
         super().__init__()
@@ -195,6 +196,10 @@ class NeuralRayBaseRenderer(nn.Module):
             outputs['ray_mask'] = torch.sum(prj_dict['mask'].int(),0)>self.cfg['ray_mask_view_num'] # qn,rn,dn,1
             outputs['ray_mask'] = torch.sum(outputs['ray_mask'],2)>self.cfg['ray_mask_point_num'] # qn,rn
             outputs['ray_mask'] = outputs['ray_mask'][...,0]
+
+        if self.cfg['render_depth']:
+            # qn,rn,dn
+            outputs['render_depth'] = torch.sum(hit_prob_nr * que_depth, -1) # qn,rn
         return outputs
 
     def fine_render_impl(self, coarse_render_info, que_imgs_info, ref_imgs_info, is_train):
