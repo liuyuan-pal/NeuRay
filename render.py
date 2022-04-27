@@ -55,9 +55,20 @@ def save_renderings(output_dir, qi, render_info, h, w):
     output_image('nr')
     output_image('nr_fine')
 
+def save_depth(output_dir, qi, render_info, h, w, depth_range):
+    suffix='fine'
+    if f'render_depth_{suffix}' in render_info:
+        depth = render_info[f'render_depth_{suffix}'].cpu().numpy().reshape([h, w])
+        near, far = depth_range
+        depth = np.clip(depth, a_min=near, a_max=far)
+        depth = (1/depth - 1/near)/(1/far - 1/near)
+        depth = color_map_backward(depth)
+        imsave(f'{output_dir}/{qi}-{suffix}-depth.png', depth)
+
 def render_video_gen(database_name: str,
                      cfg_fn='configs/gen_lr_neuray.yaml',
                      pose_type='inter', pose_fn=None,
+                     render_depth=False,
                      ray_num=8192, rb=0, re=-1):
     default_render_cfg = {
         'min_wn': 8, # working view number
@@ -74,6 +85,7 @@ def render_video_gen(database_name: str,
 
     render_cfg = {**default_render_cfg, **render_cfg}
 
+    cfg['render_depth'] = render_depth
     # load model
     renderer = name2network[cfg['network']](cfg)
     ckpt = torch.load(f'data/model/{cfg["name"]}/model_best.pth')
@@ -121,29 +133,40 @@ def render_video_gen(database_name: str,
             render_info = renderer(data)
         h, w = que_shapes[qi]
         save_renderings(output_dir, qi, render_info, h, w)
+        if render_depth:
+            save_depth(output_dir, qi, render_info, h, w, que_depth_ranges[qi])
         if pose_type=='eval':
             gt_dir = f'data/render/{database_name}/gt'
             Path(gt_dir).mkdir(exist_ok=True, parents=True)
             if not (Path(gt_dir)/f'{qi}.jpg').exists():
                 imsave(f'{gt_dir}/{qi}.jpg',database.get_image(render_ids[qi]))
 
-def render_video_ft(database_name, cfg_fn, pose_type, rb=0, re=-1):
+def render_video_ft(database_name, cfg_fn, pose_type, pose_fn, render_depth=False, ray_num=4096, rb=0, re=-1):
     # init network
-    default_cfg={'external_ray_feats': False}
-    cfg = {**default_cfg, **load_cfg(cfg_fn)}
+    # default_cfg={}
+    # cfg = {**default_cfg, **load_cfg(cfg_fn)}
+    cfg = load_cfg(cfg_fn)
     cfg['gen_cfg'] = None
     cfg['validate_initialization'] = False
-    renderer = name2network[cfg['network']](cfg)
+    cfg['ray_batch_num'] = ray_num
+    cfg['render_depth'] = render_depth
     ckpt = torch.load(f'data/model/{cfg["name"]}/model_best.pth')
+    _, dim, h, w = ckpt['network_state_dict']['ray_feats.0'].shape
+    cfg['ray_feats_res'] = [h,w]
+    cfg['ray_feats_dim'] = dim
+    renderer = name2network[cfg['network']](cfg)
     renderer.load_state_dict(ckpt['network_state_dict'])
+    step=ckpt['step']
     renderer.cuda()
     renderer.eval()
 
     database = parse_database_name(database_name)
-    que_poses, que_Ks, que_shapes, que_depth_ranges = prepare_render_info(database, pose_type)
+    que_poses, que_Ks, que_shapes, que_depth_ranges, ref_ids, render_ids = \
+        prepare_render_info(database, pose_type, pose_fn, False)
+    assert(database.database_name == renderer.database.database_name)
 
-    output_dir = f'data/video_render/{database_name}/{cfg["name"]}-{pose_type}'
-    make_dir(output_dir)
+    output_dir = f'data/render/{database.database_name}/{cfg["name"]}-{step}-{pose_type}'
+    Path(output_dir).mkdir(parents=True,exist_ok=True)
 
     # render
     num = que_poses.shape[0]
@@ -156,6 +179,8 @@ def render_video_ft(database_name, cfg_fn, pose_type, rb=0, re=-1):
             render_info = renderer.render_pose(que_imgs_info)
         h, w = que_shapes[qi]
         save_renderings(output_dir, qi, render_info, h, w)
+        if render_depth:
+            save_depth(output_dir, qi, render_info, h, w, que_depth_ranges[qi])
 
 if __name__=="__main__":
     parser = argparse.ArgumentParser()
@@ -166,10 +191,12 @@ if __name__=="__main__":
     parser.add_argument('--rb', type=int, default=0, help='begin index of rendering poses')
     parser.add_argument('--re', type=int, default=-1, help='end index of rendering poses')
     parser.add_argument('--render_type', type=str, default='gen', help='gen:generalization or ft:finetuning')
-    parser.add_argument('--ray_num', type=int, default=4096, help='number of ')
+    parser.add_argument('--ray_num', type=int, default=4096, help='number of rays in one rendering batch')
+    parser.add_argument('--depth', action='store_true', dest='depth', default=False)
     flags = parser.parse_args()
     if flags.render_type=='gen':
-        render_video_gen(flags.database_name,cfg_fn=flags.cfg,pose_type=flags.pose_type,pose_fn=flags.pose_fn,ray_num=flags.ray_num,rb=flags.rb,re=flags.re)
+        render_video_gen(flags.database_name, cfg_fn=flags.cfg, pose_type=flags.pose_type, pose_fn=flags.pose_fn,
+                         render_depth=flags.depth, ray_num=flags.ray_num, rb=flags.rb,re=flags.re)
     else:
-        raise NotImplementedError
-    #     render_video_ft(flags.database_name, cfg_fn=flags.cfg, pose_type=flags.pose_type, rb=flags.rb, re=flags.re)
+        render_video_ft(flags.database_name, cfg_fn=flags.cfg, pose_type=flags.pose_type, pose_fn=flags.pose_fn,
+                        render_depth=flags.depth, ray_num=flags.ray_num, rb=flags.rb, re=flags.re)

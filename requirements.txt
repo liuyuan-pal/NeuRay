@@ -13,3 +13,4 @@ matplotlib
 scipy
 lpips
 transforms3d
+tensorboardX
