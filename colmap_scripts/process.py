@@ -75,11 +75,6 @@ def process_example_dataset(example_name, same_camera=False, colmap_path='$HOME/
     print(' '.join(cmd))
     subprocess.run(cmd,check=True)
 
-    cmd=[colmap_path,'patch_match_stereo',
-         '--workspace_path',f'{project_dir}/dense']
-    print(' '.join(cmd))
-    subprocess.run(cmd,check=True)
-
     cmd = [str(colmap_path), 'stereo_fusion',
            '--workspace_path', f'{project_dir}/dense',
            '--workspace_format', 'COLMAP',
