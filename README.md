@@ -178,7 +178,7 @@ python render.py --cfg configs/ft/neuray_ft_lego_pretrain.yaml \
 
 ## Code explanation
 
-We have provided explanation on variable naming convention in [here](codes_expalanations.md) to make our codes more readable.
+We have provided explanation on variable naming convention in [here](codes_explanations.md) to make our codes more readable.
 
 ## Acknowledgements
 In this repository, we have used codes or datasets from the following repositories. 
