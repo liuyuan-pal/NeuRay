@@ -4,7 +4,7 @@ from scipy.spatial.transform import Rotation
 from scipy.spatial.transform import Slerp
 
 # from asset import example_scene_name2inter_ids, blended_mvs_ids
-from dataset.database import BaseDatabase
+from dataset.database import BaseDatabase, ExampleDatabase
 from utils.base_utils import pose_inverse, transform_points_Rt
 
 
@@ -96,12 +96,24 @@ def forward_circle_poses(database:BaseDatabase):
     render_poses=np.asarray(render_poses)
     return render_poses
 
+def interpolate_poses(database: BaseDatabase):
+    name = database.database_name
+    if name.startswith('example/fox'):
+        assert(isinstance(database, ExampleDatabase))
+        inter_fns = [f'{k:04}.jpg' for k in [1,2,3,4,6,7,8,9,12,14,18,19,21,22]]
+        img_ids = [database.img_fn2img_id[fn] for fn in inter_fns]
+        que_poses = interpolate_render_poses(database, img_ids, 60, True)
+    else:
+        raise NotImplementedError
+    return que_poses
+
 def get_render_poses(database, pose_type, pose_fn=None):
     if pose_type.startswith('inter'):
-        inter_num = int(pose_type.split('_')[1])
-        inter_ids = np.loadtxt(pose_fn, dtype=np.int64)
-        inter_ids = np.asarray(database.get_img_ids())[inter_ids]
-        que_poses = interpolate_render_poses(database, inter_ids, inter_num)
+        que_poses = interpolate_poses(database)
+        # inter_num = int(pose_type.split('_')[1])
+        # inter_ids = np.loadtxt(pose_fn, dtype=np.int64)
+        # inter_ids = np.asarray(database.get_img_ids())[inter_ids]
+        # que_poses = interpolate_render_poses(database, inter_ids, inter_num)
     elif pose_type=='circle':
         que_poses = forward_circle_poses(database)
     else:

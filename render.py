@@ -100,8 +100,19 @@ def render_video_gen(database_name: str,
         prepare_render_info(database, pose_type, pose_fn, render_cfg['use_depth'])
 
     # select working views
+    # overlap_select = False
+    # if overlap_select:
+    #     ref_ids_list = []
+    #     ref_size = database.get_image(ref_ids_all[0]).shape[:2]
+    #     ref_poses = np.stack([database.get_pose(ref_id) for ref_id in ref_ids_all], 0)
+    #     ref_Ks = np.stack([database.get_K(ref_id) for ref_id in ref_ids_all], 0)
+    #     for que_pose, que_K, que_shape, que_depth_range in zip(que_poses, que_Ks, que_shapes, que_depth_ranges):
+    #         ref_indices = select_working_views_by_overlap(ref_poses, ref_Ks, ref_size, que_pose, que_K, que_shape, que_depth_range, render_cfg['min_wn'])
+    #         ref_ids_list.append(np.asarray(ref_ids_all)[ref_indices])
+    # else:
     ref_ids_list = select_working_views_db(database, ref_ids_all, que_poses, render_cfg['min_wn'])
     output_dir = f'data/render/{database.database_name}/{cfg["name"]}-{step}-{pose_type}'
+    # if overlap_select: output_dir+='-overlap'
     make_dir(output_dir)
 
     # render
@@ -193,6 +204,7 @@ if __name__=="__main__":
     parser.add_argument('--render_type', type=str, default='gen', help='gen:generalization or ft:finetuning')
     parser.add_argument('--ray_num', type=int, default=4096, help='number of rays in one rendering batch')
     parser.add_argument('--depth', action='store_true', dest='depth', default=False)
+    # parser.add_argument('--overlap', action='store_true', dest='overlap', default=False)
     flags = parser.parse_args()
     if flags.render_type=='gen':
         render_video_gen(flags.database_name, cfg_fn=flags.cfg, pose_type=flags.pose_type, pose_fn=flags.pose_fn,

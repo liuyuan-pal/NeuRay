@@ -474,11 +474,12 @@ class ExampleDatabase(BaseDatabase):
         cameras = read_cameras_binary(f'{self.root_dir}/sparse/0/cameras.bin')
         images = read_images_binary(f'{self.root_dir}/sparse/0/images.bin')
         self.img_ids = [str(k+1) for k in range(len(images))]
-        self.img_id2pose,self.img_id2K,self.img_id2fn={},{},{}
+        self.img_id2pose,self.img_id2K,self.img_id2fn,self.img_fn2img_id={},{},{},{}
         for img_id in self.img_ids:
             img_id_int = int(img_id)
             fn = images[img_id_int].name
             self.img_id2fn[img_id] = fn
+            self.img_fn2img_id[fn] = img_id
 
             R = images[img_id_int].qvec2rotmat()
             t = images[img_id_int].tvec
