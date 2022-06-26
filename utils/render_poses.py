@@ -9,7 +9,9 @@ from utils.base_utils import pose_inverse, transform_points_Rt
 
 
 def interpolate_render_poses(database, inter_img_ids, view_num, loop=True):
-    if loop: inter_img_ids = np.append(inter_img_ids, inter_img_ids[0])
+    if loop:
+        inter_img_ids = list(inter_img_ids)+list(inter_img_ids[:-1:-1])
+        # inter_img_ids = np.append(inter_img_ids, inter_img_ids[0])
     poses = [database.get_pose(str(img_id)) for img_id in inter_img_ids]
     poses_inv = [pose_inverse(pose) for pose in poses]
     cam_pts = np.asarray(poses_inv)[:, :, 3]
