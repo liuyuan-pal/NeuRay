@@ -18,7 +18,7 @@ from network.render_ops import *
 from utils.base_utils import to_cuda, load_cfg, color_map_backward, get_coords_mask
 from utils.draw_utils import concat_images_list
 from utils.imgs_info import build_imgs_info, imgs_info_to_torch, imgs_info_slice
-from utils.view_select import compute_nearest_camera_indices, select_working_views, select_working_views_by_overlap
+from utils.view_select import compute_nearest_camera_indices, select_working_views
 
 
 class NeuralRayBaseRenderer(nn.Module):
@@ -524,22 +524,11 @@ class NeuralRayFtRenderer(NeuralRayBaseRenderer):
         render_outputs.update({'que_imgs_info': que_imgs_info})
         return render_outputs
 
-    def render_pose(self, render_imgs_info, overlap_mode=False):
+    def render_pose(self, render_imgs_info):
         # this function is used in rendering from arbitrary poses
         render_pose = render_imgs_info['poses'].cpu().numpy()
         ref_poses = self.ref_imgs_info['poses'].cpu().numpy()
-        if overlap_mode:
-            import ipdb; ipdb.set_trace()
-            ref_Ks = self.ref_imgs_info['Ks'].cpu().numpy()
-            rfn,_, h, w = self.ref_imgs_info.shape
-            ref_size = (h, w)
-            que_pose = render_imgs_info['poses'].cpu().numpy()[0]
-            que_K = render_imgs_info['Ks'].cpu().numpy()[0]
-            que_range = render_imgs_info['depth_range'].cpu().numpy()[0]
-            que_size = render_imgs_info['shape']
-            ref_idx = select_working_views_by_overlap(ref_poses, ref_Ks, ref_size, que_pose, que_K, que_size, que_range, self.cfg['neighbor_view_num'], 32)
-        else:
-            ref_idx = select_working_views(ref_poses, render_pose, self.cfg['neighbor_view_num'], True)[0]
+        ref_idx = select_working_views(ref_poses, render_pose, self.cfg['neighbor_view_num'], True)[0]
         ref_imgs_info = to_cuda(imgs_info_slice(self.ref_imgs_info, torch.from_numpy(ref_idx).long()))
         ref_imgs_info['ray_feats'] = torch.cat([self.ray_feats[ref_i] for ref_i in ref_idx], 0)
 
