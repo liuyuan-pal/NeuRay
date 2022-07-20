@@ -2,6 +2,7 @@ import abc
 import glob
 import json
 import os
+import random
 import re
 from pathlib import Path
 
@@ -1031,6 +1032,15 @@ def get_database_split(database: BaseDatabase, split_type='val'):
             train_ids = [img_id for img_id in database.get_img_ids(check_depth_exist=depth_valid) if img_id not in val_ids]
         else:
             raise NotImplementedError
+    elif split_type.startswith('example'):
+        _, split_num = split_type.split('_')
+        split_num = int(split_num)
+        assert(database, ExampleDatabase)
+        train_ids = database.get_img_ids()
+        random.seed(1234)
+        random.shuffle(train_ids)
+        val_ids = train_ids[:split_num]
+        train_ids = train_ids[split_num:]
     else:
         raise NotImplementedError
     return train_ids, val_ids

@@ -332,7 +332,7 @@ class NeuralRayFtRenderer(NeuralRayBaseRenderer):
     default_cfg={
         # scene
         'database_name': 'nerf_synthetic/lego/black_400',
-        "database_split_type": 'val_all',
+        "database_split": 'val_all',
 
         # input config
         "ref_pad_interval": 16,
@@ -362,7 +362,7 @@ class NeuralRayFtRenderer(NeuralRayBaseRenderer):
         super().__init__(cfg)
         self.cached=False
         self.database = parse_database_name(self.cfg['database_name'])
-        self.ref_ids, self.val_ids = get_database_split(self.database, self.cfg['database_split_type'])
+        self.ref_ids, self.val_ids = get_database_split(self.database, self.cfg['database_split'])
         self.ref_ids = np.asarray(self.ref_ids)
 
         # build imgs_info

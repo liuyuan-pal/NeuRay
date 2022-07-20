@@ -1,0 +1,43 @@
+name: neuray_ft_desktop_pretrain
+
+# network
+network: neuray_ft
+use_hierarchical_sampling: true
+dist_decoder_cfg:
+  use_vis: false
+gen_cfg: configs/gen/neuray_gen_depth.yaml
+database_name: example/desktop/raw # change this for your custom database
+database_split: example_1 # this means using all images for training, and randomly use 1 image for validation
+
+train_ray_num: 512
+use_self_hit_prob: true
+validate_initialization: true
+
+# loss
+loss: [render, consist]
+val_metric: [psnr_ssim, vis_img]
+key_metric_name: psnr_nr_fine
+use_nr_fine_loss: true
+
+# lr
+val_interval: 5000
+save_interval: 5000
+total_step: 200000
+lr_cfg:
+  lr_init: 1.0e-4
+  decay_step: 100000
+  decay_rate: 0.5
+
+# dataset
+train_dataset_type: ft
+train_dataset_cfg:
+  database_name: example/desktop/raw # change this for your custom database
+  database_split: example_1
+
+val_set_list:
+  -
+    name: val
+    type: ft
+    cfg:
+      database_name: example/desktop/raw # change this for your custom database
+      database_split: example_1

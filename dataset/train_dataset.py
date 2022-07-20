@@ -384,12 +384,12 @@ class GeneralRendererDataset(Dataset):
 class FinetuningRendererDataset(Dataset):
     default_cfg={
         "database_name": "nerf_synthetic/lego/black_800",
-        "database_split_type": "val_all"
+        "database_split": "val_all"
     }
     def __init__(self,cfg, is_train):
         self.cfg={**self.default_cfg,**cfg}
         self.is_train=is_train
-        self.train_ids, self.val_ids = get_database_split(parse_database_name(self.cfg['database_name']),self.cfg['database_split_type'])
+        self.train_ids, self.val_ids = get_database_split(parse_database_name(self.cfg['database_name']),self.cfg['database_split'])
 
     def __getitem__(self, index):
         output={'index': index}

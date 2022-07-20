@@ -21,7 +21,7 @@ Make sure these images are not too large (e.g. <= 960x720). Otherwise, running C
 
 ```shell
 python run_colmap.py --example_name desktop \
-					 --colmap <path-to-your-colmap> # note we need the dense reconstruction
+                     --colmap <path-to-your-colmap> # note we need the dense reconstruction
 ```
 
 `data/example/desktop` will be the project directory for COLMAP.
@@ -63,3 +63,12 @@ python render.py --cfg configs/gen/neuray_gen_depth.yaml \
 ```
 
  Rendered images are saved in `data/render/blended_mvs/building/half/neuray_gen_depth-pretrain-inter_60`.
+ 
+### Finetuning on a custom scene
+
+```shell
+python run_training.py --cfg configs/train/ft/example/neuray_ft_desktop_pretrain.yaml
+```
+To write a new config file for finetuning on a new custom scene. You need to change all `database_name` and `database_split` in the `.yaml` file.
+The `database_name` will be parsed to a `BaseDatabase` class in `dataset/database.py` by the function `parse_database_name`, which are utilized by NeuRay as explained in [codes_explanations.md](codes_explanations.md).
+The `database_split` will be used in the function `get_database_split` in the `dataset/database.py` to determine training images and validation images.
