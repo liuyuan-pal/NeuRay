@@ -4,8 +4,8 @@ easydict
 inplace-abn
 plyfile
 numpy
-skimage
-yaml
+scikit-image
+pyyaml
 h5py
 opencv-python
 tqdm
