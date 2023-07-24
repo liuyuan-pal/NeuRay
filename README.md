@@ -154,7 +154,7 @@ python run_training.py --cfg configs/train/ft/neuray_ft_cv_lego.yaml
 The finetuned models will be saved at `data/model`.
 
 ### Finetuned models
-We provide the finetuned models on the NeRF synthetic datasets at [here]().
+We provide the finetuned models on the NeRF synthetic datasets at [here](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/yuanly_connect_hku_hk/EZsnVJ4qkTRLtcaF5WdnLhcBfU3BOjTTbVbWV6Id2bEPNg?e=lderS0).
 
 Download the models and organize files like
 ```shell
