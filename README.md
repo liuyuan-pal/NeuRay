@@ -31,8 +31,8 @@ pip install -r requirements.txt
 </details>
 
 ### Download datasets and pretrained models
-1. Download processed datasets: [DTU-Test](https://drive.google.com/file/d/1E53MjQJR-cSndJi14MXjx1ombzSq7XTu/view?usp=sharing) / [LLFF](https://drive.google.com/file/d/1CPfdekwKM6zt_skb-IYOruN3Dyzwfhdm/view?usp=sharing) / [NeRF Synthetic](https://drive.google.com/file/d/1EEwDBQY2jUNJpptxOZPG9nkHz96HChed/view?usp=sharing).
-2. Download pretrained model [NeuRay-Depth](https://drive.google.com/file/d/1ZIwCnnD8avga8f-p5-Z8m1C_lRgdDaLq/view?usp=sharing) and [NeuRay-CostVolume](https://drive.google.com/file/d/16EVg1ql86FlHwP4JaBhR79dT-gBhDUK2/view?usp=sharing).
+1. Download processed datasets: [DTU-Test](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/yuanly_connect_hku_hk/ESZ5vNtkX6dJlJKt_xoJXkMBwLHmPvnXF0UQhaJQIw858w?e=u2DqHd) / [LLFF]() / [NeRF Synthetic](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/yuanly_connect_hku_hk/Ec7yNxwmVbBDmccPar34yOgBwGDyztVfpV-XRIhyKLEg2Q?e=gYKSTm).
+2. Download pretrained model [NeuRay-Depth](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/yuanly_connect_hku_hk/EZAC_ae_zExMu-A393Hl3U0B7tYhSHvmyK8MkDX7Q2sNfw?e=vQ0DUl) and [NeuRay-CostVolume](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/yuanly_connect_hku_hk/ERzZxknfEP5ErHBnFNP2AAYBRs99KmFkZUXj8rTu23Fv4g?e=uo6Euu).
 3. Organize datasets and models as follows
 ```
 NeuRay
@@ -97,9 +97,9 @@ To render on custom scenes, please refer to [this](custom_rendering.md)
 
 1. Download [Google Scanned Objects](https://github.com/googleinterns/IBRNet#e-google-scanned-objects), [RealEstate10K](https://github.com/googleinterns/IBRNet#d-realestate10k)
 [Space Dataset](https://github.com/googleinterns/IBRNet#c-spaces-dataset) and [LLFF released Scenes](https://github.com/googleinterns/IBRNet#b-llff-released-scenes) from [IBRNet](https://github.com/googleinterns/IBRNet).
-2. Download colmap depth for forward-facing scenes at [here](https://drive.google.com/file/d/1Oj0e8hCrZhS3k8MTWgc_OC1PeLX8jXhT/view?usp=sharing).
-3. Download [DTU](https://roboimagedata.compute.dtu.dk/?page_id=36) training images at [here](https://drive.google.com/file/d/1rF0Iu-7l3mIxJ9B_LbcpRoPOiaasbR0o/view?usp=sharing).
-4. Download colmap depth for DTU training images at [here](https://drive.google.com/file/d/1PERzAXu80OnyrUC97NZc-i3MaEsq1mFp/view?usp=sharing).
+2. Download colmap depth for forward-facing scenes at [here]().
+3. Download [DTU](https://roboimagedata.compute.dtu.dk/?page_id=36) training images at [here]().
+4. Download colmap depth for DTU training images at [here]().
 
 Rename directories and organize datasets like
 ```shell
@@ -154,8 +154,7 @@ python run_training.py --cfg configs/train/ft/neuray_ft_cv_lego.yaml
 The finetuned models will be saved at `data/model`.
 
 ### Finetuned models
-We provide the finetuned models on the NeRF synthetic datasets at [here](https://drive.google.com/file/d/16uj7e_-8EDOLKF96QkdP3xwkBqCrc6ad/view?usp=sharing
-).
+We provide the finetuned models on the NeRF synthetic datasets at [here]().
 
 Download the models and organize files like
 ```shell
