@@ -4,7 +4,7 @@ We have provided interfaces to render on custom scenes. An example is in the fol
 
 #### 1. Download example images 
 
-Download images [here](https://drive.google.com/file/d/1Lkt5nNlC9M5Agkt5y3uzD2VX7R2ElalS/view?usp=sharing) and organize files like
+Download images [here](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/yuanly_connect_hku_hk/EVGakxQWw5ZLjgK3147QCNQBpZu5U75mTU9-I-vkkAfyvA?e=gskW7j) and organize files like
 
 ```
 NeuRay
@@ -52,7 +52,7 @@ A video looking like the following should be generated.
 
 ### Render on BlendedMVS dataset
 
-We have provided estimated depth maps from COLMAP on the BlendedMVS dataset, which can be downloaded [here](https://drive.google.com/file/d/10FeghnPjjY9JjeM17pcG3XLgH7jhm4jX/view?usp=sharing), and the corresponding rendering poses are in `configs/inter_trajectory/blended_mvs`. Organize files like `data/blended-mvs/<uids>` and we can render novel view images by
+We have provided estimated depth maps from COLMAP on the BlendedMVS dataset, which can be downloaded [here](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/yuanly_connect_hku_hk/EaUz_5npniRMhoiZg1U6uBYBqHdBIcABhL2z9UQjgvVKyg?e=g7Kxig), and the corresponding rendering poses are in `configs/inter_trajectory/blended_mvs`. Organize files like `data/blended-mvs/<uids>` and we can render novel view images by
 
 ```shell
 # We may change the "building" in the command to ["iron_dog", "santa", "dragon", "mermaid", "laid_man"]
