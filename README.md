@@ -31,7 +31,7 @@ pip install -r requirements.txt
 </details>
 
 ### Download datasets and pretrained models
-1. Download processed datasets: [DTU-Test](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/yuanly_connect_hku_hk/ESZ5vNtkX6dJlJKt_xoJXkMBwLHmPvnXF0UQhaJQIw858w?e=u2DqHd) / [LLFF]() / [NeRF Synthetic](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/yuanly_connect_hku_hk/Ec7yNxwmVbBDmccPar34yOgBwGDyztVfpV-XRIhyKLEg2Q?e=gYKSTm).
+1. Download processed datasets: [DTU-Test](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/yuanly_connect_hku_hk/ESZ5vNtkX6dJlJKt_xoJXkMBwLHmPvnXF0UQhaJQIw858w?e=u2DqHd) / [LLFF](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/yuanly_connect_hku_hk/EbI1OMqOjOdEtS3NqNguPXsBXOfEnG0MWMmD0If-7OR4dg?e=bf6Pvu) / [NeRF Synthetic](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/yuanly_connect_hku_hk/Ec7yNxwmVbBDmccPar34yOgBwGDyztVfpV-XRIhyKLEg2Q?e=gYKSTm).
 2. Download pretrained model [NeuRay-Depth](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/yuanly_connect_hku_hk/EZAC_ae_zExMu-A393Hl3U0B7tYhSHvmyK8MkDX7Q2sNfw?e=vQ0DUl) and [NeuRay-CostVolume](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/yuanly_connect_hku_hk/ERzZxknfEP5ErHBnFNP2AAYBRs99KmFkZUXj8rTu23Fv4g?e=uo6Euu).
 3. Organize datasets and models as follows
 ```
