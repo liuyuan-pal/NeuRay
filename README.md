@@ -98,8 +98,8 @@ To render on custom scenes, please refer to [this](custom_rendering.md)
 1. Download [Google Scanned Objects](https://github.com/googleinterns/IBRNet#e-google-scanned-objects), [RealEstate10K](https://github.com/googleinterns/IBRNet#d-realestate10k)
 [Space Dataset](https://github.com/googleinterns/IBRNet#c-spaces-dataset) and [LLFF released Scenes](https://github.com/googleinterns/IBRNet#b-llff-released-scenes) from [IBRNet](https://github.com/googleinterns/IBRNet).
 2. Download colmap depth for forward-facing scenes at [here]().
-3. Download [DTU](https://roboimagedata.compute.dtu.dk/?page_id=36) training images at [here]().
-4. Download colmap depth for DTU training images at [here]().
+3. Download [DTU](https://roboimagedata.compute.dtu.dk/?page_id=36) training images at [here](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/yuanly_connect_hku_hk/EXcPUeyIqAdHrS2LUCmrRJwB8UN0QItiPBm90YuldNm0Ig?e=2POyCI).
+4. Download colmap depth for DTU training images at [here](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/yuanly_connect_hku_hk/EfkjOG2b1epNl322dE3EOeQBAm_Ncver5EmPN4mOZE0ZnA?e=R975nx).
 
 Rename directories and organize datasets like
 ```shell
