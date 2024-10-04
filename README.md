@@ -97,9 +97,10 @@ To render on custom scenes, please refer to [this](custom_rendering.md)
 
 1. Download [Google Scanned Objects](https://github.com/googleinterns/IBRNet#e-google-scanned-objects), [RealEstate10K](https://github.com/googleinterns/IBRNet#d-realestate10k)
 [Space Dataset](https://github.com/googleinterns/IBRNet#c-spaces-dataset) and [LLFF released Scenes](https://github.com/googleinterns/IBRNet#b-llff-released-scenes) from [IBRNet](https://github.com/googleinterns/IBRNet).
-2. Download colmap depth for forward-facing scenes at [here](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/yuanly_connect_hku_hk/EX0M0c_DyUFDiz1c-ebSO_oBTEeWk8jRYNwCHMgbFH0Pww?e=bO9stn).
+2. ~~Download colmap depth for forward-facing scenes at [here](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/yuanly_connect_hku_hk/EX0M0c_DyUFDiz1c-ebSO_oBTEeWk8jRYNwCHMgbFH0Pww?e=bO9stn).~~
 3. Download [DTU](https://roboimagedata.compute.dtu.dk/?page_id=36) training images at [here](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/yuanly_connect_hku_hk/EXcPUeyIqAdHrS2LUCmrRJwB8UN0QItiPBm90YuldNm0Ig?e=2POyCI).
-4. Download colmap depth for DTU training images at [here](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/yuanly_connect_hku_hk/EfkjOG2b1epNl322dE3EOeQBAm_Ncver5EmPN4mOZE0ZnA?e=R975nx).
+4. ~~Download colmap depth for DTU training images at [here](https://connecthkuhk-my.sharepoint.com/:u:/g/personal/yuanly_connect_hku_hk/EfkjOG2b1epNl322dE3EOeQBAm_Ncver5EmPN4mOZE0ZnA?e=R975nx).~~
+5. The COLMAP depth maps are not available anymore. You may need to run the COLMAP by yourself.
 
 Rename directories and organize datasets like
 ```shell
@@ -116,7 +117,7 @@ NeuRay
 
 ### Train generalization model
 
-Train the model with NeuRay initialized from estimated depth of COLMAP. 
+Train the model with NeuRay initialized from the estimated depth of COLMAP. 
 ```shell
 python run_training.py --cfg configs/train/gen/neuray_gen_depth_train.yaml
 ```
